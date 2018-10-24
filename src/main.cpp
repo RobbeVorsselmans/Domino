@@ -119,8 +119,13 @@ void setup() {
   //processImage(yinYang, 16, 16);
   Motor1.rename("Voorwaartse Motor 1");
   Motor2.rename("Zijwaartse Motor 2");
+<<<<<<< HEAD
   Motor1.toggleDebugMode();
   Motor2.toggleDebugMode();
+=======
+  Motor1.disableDebuggingOutput();
+  Motor2.disableDebuggingOutput();
+>>>>>>> 89786875b182db9d4669ebb206d2aebcc4dca0ac
 }
 
 void loop() {

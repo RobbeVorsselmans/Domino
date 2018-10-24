@@ -16,7 +16,12 @@ public:
   void connect(int dir1Pin, int dir2Pin, int speedPin);
   void drive(direction dir, int sp);
   void move(direction dir, int sp, unsigned long durMillis);
+<<<<<<< HEAD
   void toggleDebugMode() { debugging = !debugging; };
+=======
+  void enableDebuggingOutput() { debugging = true; };
+  void disableDebuggingOutput() { debugging = false; };
+>>>>>>> 89786875b182db9d4669ebb206d2aebcc4dca0ac
 
 private:
   byte dir1Pin, dir2Pin, speedPin;
