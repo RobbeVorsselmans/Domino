@@ -3,7 +3,6 @@
 //#include "LionKing.h"
 #include "YinYang.h"
 //#include "Toad.h"
-#include "Motor.h"
 
 #define numLeds 256
 #define stripPin 6
@@ -13,18 +12,8 @@
 #define blockWidth 24
 #define blockHeight 48
 #define rowSpacing 4
-bool toggleRows = false; 
 
-#define dir1PinA 3
-#define dir2PinA 4
-#define speedPinA 5 // Needs to be a PWM pin to be able to control motor speed
-#define dir1PinB 7
-#define dir2PinB 8
-#define speedPinB 6 // Needs to be a PWM pin to be able to control motor speed
-#define servoBlackPin 9
-#define servoWhitePin 10
-Motor Motor1{dir1PinA,dir2PinA,speedPinA};
-Motor Motor2{dir1PinB,dir2PinB,speedPinB};
+bool toggleRows = false; 
 
 // macros te generate loopup table (at compile-time)
 #define B2(n) n, n + 1, n + 1, n + 2
@@ -36,6 +25,7 @@ Adafruit_NeoPixel strip =
     Adafruit_NeoPixel(numLeds, stripPin, NEO_GRB + NEO_KHZ800);
 
 byte countBts[256] = {Count_Bits_Macro}; // calculate lookuptable to count bits in byte
+
 byte countBits(byte Im[], int rows, int cols) {
   byte sum = 0;
   byte nBytesPerRow = cols % 8 == 0 ? cols / 8 : cols / 8 + 1; // count how many bytes make one row
@@ -49,8 +39,6 @@ byte countBits(byte Im[], int rows, int cols) {
   }
   return sum;
 }
-
-
 
 void processImage(byte Im[], int rows, int cols) {
   byte nBytesPerRow = cols % 8 == 0
@@ -102,30 +90,15 @@ void printImageInfo(byte Im[], int rows, int cols){
   Serial.print(F("The image contains ")); Serial.print(ones);  Serial.print(F(" black and ")); Serial.print(rows * cols - ones); Serial.println(F(" white blocks."));
 }
 
-void dropBlack(){
-  Serial.println("Drop zwart blokje.");
-  // TODO: Twee servomotoren aansturen met een bitShiftRegister
-  
-}
-
 void setup() {
   strip.setBrightness(brightness);
   strip.begin();
   strip.clear();
   strip.show();
   Serial.begin(9600);
-  ////processImage(LionKing, 64, 128);
-  //printImageInfo(yinYang, 16, 16);
-  //processImage(yinYang, 16, 16);
-  Motor1.rename("Voorwaartse Motor 1");
-  Motor2.rename("Zijwaartse Motor 2");
-  Motor1.toggleDebugMode();
-  Motor2.toggleDebugMode();
+  //processImage(LionKing, 64, 128);
+  printImageInfo(yinYang, 16, 16);
+  processImage(yinYang, 16, 16);
 }
 
-void loop() {
-  Motor1.move(Motor::forward,128,1000);
-  dropBlack();
-  Motor2.move(Motor::backward,128,1000);
-  dropBlack();
-}
+void loop() {}
